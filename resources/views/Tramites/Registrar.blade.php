@@ -1,0 +1,72 @@
+@extends('layouts.plantilla')
+
+
+@section('content1')
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Registrar Tramite') }}</div>
+
+                <div class="card-body">
+                    <form method="POST" action="{{ route('Tramites.store') }}">
+                        @csrf
+
+                        <div class="mb-3 row">
+                           
+                            <label for="name" class="col-md-4 col-form-label" >{{ __('Nombre del Tramite:') }}</label>
+
+                            <div class="col-md-10">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                       
+
+                          <div class="alert alert-info mt-5">
+                            <strong>Tramites:</strong> son Aquellas operaciones que realizan los Modulos, en la Atencion al Ciudadano, cada Modulo Cuenta con unos Tramites que se encarga de Atender
+                        </div>
+
+                        <div class="mt-5">
+                            @if (Session::has('error'))
+                            <div id="error-message" class="alert alert-danger">
+                                {{ Session::get('error') }}
+                            </div>
+                           @endif
+                           @if (Session::has('success'))
+                           <div id="error-message" class="alert alert-primary">
+                               {{ Session::get('success') }}
+                           </div>
+                         @endif
+                        </div>
+
+                        <div class=" row mt-5">
+                            <div class="col-md-8 ">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Guardar') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+@section('scripts')
+
+<script>
+    setTimeout(function() {
+        var errorMessage = document.getElementById('error-message');
+        if (errorMessage) {
+            errorMessage.style.display = 'none';
+        }
+    }, 5000);
+</script>
+@endsection
